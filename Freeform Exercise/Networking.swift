@@ -38,11 +38,35 @@ class Networking {
         let dataTask = Networking.session.uploadTask(with: request, from: data, completionHandler: { data, response, error in
             if let data = data {
                 print("networking dataTask: DATA")
+                
                 let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                if let json = jsonData as? [String: Any] {
+                print(jsonData!)
+                print("----")
+                let json = jsonData as! ApiResponse //{
                     print(json)
+                    
+                    //let jsonDecoder = JSONDecoder()
+                    //let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
+                let keywords = json.keywords
+                    //if let keywords = keywords {
+                    keywords.forEach { keyword in
+                        print("\(keyword.keyword) with score: \(keyword.score)")
+                    }
+                    //}
+                    
+                    /*print("------")
+                    
+                    print(json.keywords)
+                    print(json.status)*/
+                    /*print(json["keywords"]!)
+                    print(type(of: json["keywords"]!))
+                    print(json["keywords"] as? [Keyword] ?? "default value")
+                    let keywords = json["keywords"] as! [Keyword]
+                    keywords.forEach { keyword in
+                        print("\(keyword.keyword) with score: \(keyword.score)")
+                    }*/
                 }
-            }
+            //}
             
             if let response = response {
                 print("networking dataTask: RESPONSE")

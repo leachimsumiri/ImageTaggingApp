@@ -17,6 +17,9 @@
 		073A010D278B39420072DD24 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 073A010B278B39420072DD24 /* CoreDataModel.xcdatamodeld */; };
 		078282BA278E290F00BD5A10 /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078282B8278E290F00BD5A10 /* Image+CoreDataClass.swift */; };
 		078282BB278E290F00BD5A10 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078282B9278E290F00BD5A10 /* Image+CoreDataProperties.swift */; };
+		07C0A5FA278F5CE200916BBA /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5F9278F5CE200916BBA /* Keyword.swift */; };
+		07C0A5FC278F5D3900916BBA /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5FB278F5D3900916BBA /* ApiResponse.swift */; };
+		07C0A5FE278F5D9500916BBA /* ApiResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		073A010C278B39420072DD24 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		078282B8278E290F00BD5A10 /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
 		078282B9278E290F00BD5A10 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		07C0A5F9278F5CE200916BBA /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
+		07C0A5FB278F5D3900916BBA /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,16 +70,19 @@
 		0730FEBA27875D6D00788363 /* Freeform Exercise */ = {
 			isa = PBXGroup;
 			children = (
-				078282BC278E291400BD5A10 /* Model */,
+				0730FEC927875D6E00788363 /* Info.plist */,
+				07C0A5FB278F5D3900916BBA /* ApiResponse.swift */,
+				07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */,
 				0730FEBB27875D6D00788363 /* AppDelegate.swift */,
+				07C0A5F9278F5CE200916BBA /* Keyword.swift */,
+				0730FECF278791F800788363 /* Networking.swift */,
 				0730FEBD27875D6D00788363 /* SceneDelegate.swift */,
 				0730FEBF27875D6D00788363 /* ViewController.swift */,
-				0730FEC127875D6D00788363 /* Main.storyboard */,
 				0730FEC427875D6E00788363 /* Assets.xcassets */,
-				0730FEC627875D6E00788363 /* LaunchScreen.storyboard */,
-				0730FEC927875D6E00788363 /* Info.plist */,
-				0730FECF278791F800788363 /* Networking.swift */,
 				073A010B278B39420072DD24 /* CoreDataModel.xcdatamodeld */,
+				0730FEC627875D6E00788363 /* LaunchScreen.storyboard */,
+				0730FEC127875D6D00788363 /* Main.storyboard */,
+				078282BC278E291400BD5A10 /* Model */,
 			);
 			path = "Freeform Exercise";
 			sourceTree = "<group>";
@@ -163,6 +172,9 @@
 				0730FEBE27875D6D00788363 /* SceneDelegate.swift in Sources */,
 				078282BA278E290F00BD5A10 /* Image+CoreDataClass.swift in Sources */,
 				0730FED0278791F800788363 /* Networking.swift in Sources */,
+				07C0A5FA278F5CE200916BBA /* Keyword.swift in Sources */,
+				07C0A5FE278F5D9500916BBA /* ApiResponseError.swift in Sources */,
+				07C0A5FC278F5D3900916BBA /* ApiResponse.swift in Sources */,
 				073A010D278B39420072DD24 /* CoreDataModel.xcdatamodeld in Sources */,
 				078282BB278E290F00BD5A10 /* Image+CoreDataProperties.swift in Sources */,
 			);
