@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UINavigationControllerDelegate {
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     let networking = Networking()
+    var images:[Image]?
     
     @IBOutlet weak var imageTake: UIImageView!
     var imagePicker: UIImagePickerController!
@@ -24,7 +28,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         // Do any additional setup after loading the view.
     }
     
-    //MARK: - Take image
     @IBAction func takePhoto(_ sender: UIButton) {
         selectImageFrom(.camera)
     }
@@ -43,14 +46,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
             imagePicker.sourceType = .photoLibrary
         }
         present(imagePicker, animated: true, completion: nil)
+        
     }
     
-    //MARK: - Saving Image here
+    //MARK: - Saving Image to photolibrary
     @IBAction func save(_ sender: AnyObject) {
         guard let selectedImage = imageTake.image else {
             print("Image not found!")
             return
         }
+        
         UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
@@ -81,28 +86,109 @@ extension ViewController: UIImagePickerControllerDelegate{
         }
         imageTake.image = selectedImage
         
-        let imgBase64 = convertImageToBase64String(img: selectedImage)
-        networking.uploadImage(imgBase64: imgBase64, completionHandler: { res, nserror in 
-            print(res)
-            print(nserror)
+        let imageData = getImageData(image: selectedImage)
+        networking.uploadImage(imgData: imageData, completionHandler: { res, nserror in
+            if let res = res {
+                print("networking.uploadImage completionHandler: RES")
+                print(res)
+            }
+            
+            if let nserror = nserror {
+                print("networking.uploadImage completionHandler: NSERROR")
+                print(nserror)
+            }
         })
         
-        //1. save selectedImage
-        //2. upload to imagga
-        //curl --user "acc_8e641ff4617a004:f3c5e5919c1007d5e7e2d6268b245e28" -F "image=/Users/michaelirimus/Downloads/test.JPG" "https://api.imagga.com/v2/uploads"
+        //saveImage(data: imageData)
+        
+        //MARK: - 1st Batch
+        //1. select image or photo
+        //2. upload to everypixel
+        //curl --user "RmsP1fMKwriGr8NzNOxxuHdq:HaBGRbZXRIZBlQ9yCr9216McdThsVeyNPr3wUGwZ1pdc5BKl" -X POST -v -F "data=@/Users/michaelirimus/Downloads/person.png" "https://api.everypixel.com/v1/keywords?num_keywords=10" -v
         //3. validate response
-        //4. list tags in tableview
-    }
-    
-    func convertImageToBase64String (img: UIImage) -> String {
-        let base64Img = img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
-        //print(base64Img)
-        return base64Img
+        //4. save image and tags on success
+        //5. list tags in tableview
+        
+        /*
+         sample data response everypixel
+         
+         ["status": ok, "keywords": <__NSArrayI 0x6000022f3060>(
+         {
+             keyword = nature;
+             score = "0.9963446367958373";
+         },
+         {
+             keyword = leaf;
+             score = "0.9923241836022356";
+         },
+         {
+             keyword = plant;
+             score = "0.9911774563872999";
+         },
+         {
+             keyword = "multi colored";
+             score = "0.9576665169633503";
+         },
+         {
+             keyword = outdoors;
+             score = "0.9495950604592167";
+         },
+         {
+             keyword = flower;
+             score = "0.9318137092904007";
+         },
+         {
+             keyword = "close-up";
+             score = "0.9301507381605739";
+         },
+         {
+             keyword = summer;
+             score = "0.9023457957607128";
+         },
+         {
+             keyword = "beauty in nature";
+             score = "0.8906225989201223";
+         },
+         {
+             keyword = "pink color";
+             score = "0.7430859512903449";
+         }
+         )
+         ]
+         */
     }
     
     func getImageData(image: UIImage) -> Data {
         //check file format
         return image.pngData()!//todo correct unwrap
+        //return image.jpegData(compressionQuality: 1)!
         //status https://blog.devgenius.io/saving-images-in-coredata-8739690d0520
+    }
+    
+    
+    //CoreData
+    func saveImage(data: Data) {
+        //let entityName =  NSEntityDescription.entity(forEntityName: "Image", in: context)!
+        //let image = NSManagedObject(entity: entityName, insertInto: context)
+        //image.setValue(data, forKeyPath: "storedImage")
+        
+        let newImage = Image(context: self.context)
+        newImage.storedImage = data
+        
+        do {
+            try context.save()
+            print("saved image!")
+            //self.images?.append(newImage)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func fetchImagesFromCoreData() {
+        do {
+            self.images = try context.fetch(Image.fetchRequest())
+        } catch {
+            print("error fetching images from CoreData")
+        }
     }
 }
