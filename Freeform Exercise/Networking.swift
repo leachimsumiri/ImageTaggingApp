@@ -39,15 +39,15 @@ class Networking {
             if let data = data {
                 print("networking dataTask: DATA")
                 
-                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                /*let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
                 print(jsonData!)
                 print("----")
                 let json = jsonData as! ApiResponse //{
                     print(json)
-                    
-                    //let jsonDecoder = JSONDecoder()
-                    //let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
-                let keywords = json.keywords
+                    */
+                    let jsonDecoder = JSONDecoder()
+                    let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
+                let keywords = apiResponse.keywords
                     //if let keywords = keywords {
                     keywords.forEach { keyword in
                         print("\(keyword.keyword) with score: \(keyword.score)")

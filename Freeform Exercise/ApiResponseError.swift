@@ -10,9 +10,4 @@ import Foundation
 struct ApiResponseError: Decodable {
     let message: String
     let status: String
-    
-    enum CodingKeys: String, CodingKey {
-        case message = "message"
-        case status = "status"
-    }
 }
