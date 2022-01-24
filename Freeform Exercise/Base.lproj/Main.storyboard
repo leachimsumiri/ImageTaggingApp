@@ -94,11 +94,17 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="207" height="31"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                                <connections>
+                                                    <action selector="saveButtonTapped:" destination="plU-ev-yiJ" eventType="touchUpInside" id="WEc-71-qyl"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tul-DS-qvy">
                                                 <rect key="frame" x="207" y="0.0" width="207" height="31"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Discard"/>
+                                                <connections>
+                                                    <action selector="discardButtonTapped:" destination="plU-ev-yiJ" eventType="touchUpInside" id="Ra6-dK-bzT"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -108,7 +114,7 @@
                         <viewLayoutGuide key="safeArea" id="1zp-GJ-Dvd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="1zp-GJ-Dvd" firstAttribute="bottom" secondItem="dmD-Or-LSO" secondAttribute="bottom" constant="20" id="3qd-VQ-04k"/>
+                            <constraint firstItem="1zp-GJ-Dvd" firstAttribute="bottom" secondItem="dmD-Or-LSO" secondAttribute="bottom" constant="40" id="3qd-VQ-04k"/>
                             <constraint firstItem="dmD-Or-LSO" firstAttribute="height" secondItem="1zp-GJ-Dvd" secondAttribute="height" constant="-40" id="3wo-QD-W3w"/>
                             <constraint firstItem="dmD-Or-LSO" firstAttribute="centerX" secondItem="1zp-GJ-Dvd" secondAttribute="centerX" id="8xJ-aA-jHY"/>
                             <constraint firstItem="1zp-GJ-Dvd" firstAttribute="top" secondItem="dmD-Or-LSO" secondAttribute="top" id="I2L-0L-PA1"/>

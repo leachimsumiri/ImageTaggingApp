@@ -9,12 +9,25 @@ import Foundation
 import UIKit
 
 class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     let networking = Networking()
+    let coreData = CoreData()
     var keywords: [Keyword]?
+    var image: Data?
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var discardButton: UIButton!
+    
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        // + save tags of img
+        coreData.saveImage(data: image!)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func discardButtonTapped(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +37,8 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.dataSource = self
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        
+        coreData.fetchImagesFromCoreData()
     }
     
     override func viewWillAppear(_ animated: Bool) {

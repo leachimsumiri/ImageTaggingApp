@@ -9,18 +9,13 @@ import UIKit
 import CoreData
 
 class UploadViewController: UIViewController, UINavigationControllerDelegate {
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     let networking = Networking()
-    var images:[Image]?
     
     var imagePicker: UIImagePickerController!
     
     @IBAction func takePhoto(_ sender: UIButton) {
         selectImageFrom(.camera)
     }
-    
     @IBAction func chooseFromAlbum(_ sender: UIButton) {
         selectImageFrom(.photoLibrary)
     }
@@ -34,10 +29,6 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate {
 extension UploadViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
-        guard let selectedImage = info[.originalImage] as? UIImage else {
-            print("Image not found!")
-            return
-        }
         
         let mockResponse =
         """
@@ -78,6 +69,12 @@ extension UploadViewController: UIImagePickerControllerDelegate{
         
         let apiResponseViewController = self.storyboard?.instantiateViewController(withIdentifier: "ApiResponseViewController") as! ApiResponseViewController
         apiResponseViewController.keywords = keywords
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+            print("Image not found!")
+            // additional error handling
+            return
+        }
+        apiResponseViewController.image = getImageData(image: selectedImage)
         self.navigationController?.pushViewController(apiResponseViewController, animated: true)
         
         // temp comment
@@ -111,6 +108,8 @@ extension UploadViewController: UIImagePickerControllerDelegate{
         //check file format
         return image.pngData()!//todo correct unwrap
         //return image.jpegData(compressionQuality: 1)!
+        
+        // + errorHandling
         //status https://blog.devgenius.io/saving-images-in-coredata-8739690d0520
     }
     
@@ -127,48 +126,10 @@ extension UploadViewController: UIImagePickerControllerDelegate{
         
     }
     
-    //MARK: - Add image to Library
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
-            // we got back an error!
-            showAlertWith(title: "Save error", message: error.localizedDescription)
-        } else {
-            showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
-        }
-    }
-    
     
     func showAlertWith(title: String, message: String){
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
-    }
-}
-
-extension UploadViewController {
-    //CoreData
-    func saveImage(data: Data) {
-        //let entityName =  NSEntityDescription.entity(forEntityName: "Image", in: context)!
-        //let image = NSManagedObject(entity: entityName, insertInto: context)
-        //image.setValue(data, forKeyPath: "storedImage")
-        
-        let newImage = Image(context: self.context)
-        newImage.storedImage = data
-        
-        do {
-            try context.save()
-            print("saved image!")
-            //self.images?.append(newImage)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-    
-    func fetchImagesFromCoreData() {
-        do {
-            self.images = try context.fetch(Image.fetchRequest())
-        } catch {
-            print("error fetching images from CoreData")
-        }
     }
 }
