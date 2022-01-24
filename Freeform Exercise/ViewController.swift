@@ -86,18 +86,58 @@ extension ViewController: UIImagePickerControllerDelegate{
         }
         imageTake.image = selectedImage
         
-        let imageData = getImageData(image: selectedImage)
-        networking.uploadImage(imgData: imageData, completionHandler: { res, nserror in
-            if let res = res {
-                print("networking.uploadImage completionHandler: RES")
-                print(res)
-            }
-            
-            if let nserror = nserror {
-                print("networking.uploadImage completionHandler: NSERROR")
-                print(nserror)
-            }
-        })
+        let mockResponse =
+        """
+            {
+            "status": "ok",
+            "keywords": [
+                {
+                    "keyword": "nature",
+                    "score": 0.9963446367958373
+                },
+                {
+                    "keyword" : "leaf",
+                    "score" : 0.9923241836022356
+                },
+                {
+                    "keyword" : "plant",
+                    "score" : 0.9911774563872999
+                },
+                {
+                    "keyword" : "multi colored",
+                    "score" : 0.9576665169633503
+                },
+                {
+                    "keyword" : "outdoors",
+                    "score" : 0.9495950604592167
+                }
+            ]
+        }
+        """
+        
+        //temp
+        let jsonDecoder = JSONDecoder()
+        let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: mockResponse.data(using: .utf8)!)
+        let keywords = apiResponse.keywords
+        keywords.forEach { keyword in
+            print("\(keyword.keyword) with score: \(keyword.score)")
+        }
+        
+        // temp comment
+        /*
+         let imageData = getImageData(image: selectedImage)
+         networking.uploadImage(imgData: imageData, completionHandler: { res, nserror in
+         if let res = res {
+         print("networking.uploadImage completionHandler: RES")
+         print(res)
+         }
+         
+         if let nserror = nserror {
+         print("networking.uploadImage completionHandler: NSERROR")
+         print(nserror)
+         }
+         })
+         */
         
         //saveImage(data: imageData)
         
@@ -108,54 +148,6 @@ extension ViewController: UIImagePickerControllerDelegate{
         //3. validate response
         //4. save image and tags on success
         //5. list tags in tableview
-        
-        /*
-         sample data response everypixel
-         
-         ["status": ok, "keywords": <__NSArrayI 0x6000022f3060>(
-         {
-             keyword = nature;
-             score = "0.9963446367958373";
-         },
-         {
-             keyword = leaf;
-             score = "0.9923241836022356";
-         },
-         {
-             keyword = plant;
-             score = "0.9911774563872999";
-         },
-         {
-             keyword = "multi colored";
-             score = "0.9576665169633503";
-         },
-         {
-             keyword = outdoors;
-             score = "0.9495950604592167";
-         },
-         {
-             keyword = flower;
-             score = "0.9318137092904007";
-         },
-         {
-             keyword = "close-up";
-             score = "0.9301507381605739";
-         },
-         {
-             keyword = summer;
-             score = "0.9023457957607128";
-         },
-         {
-             keyword = "beauty in nature";
-             score = "0.8906225989201223";
-         },
-         {
-             keyword = "pink color";
-             score = "0.7430859512903449";
-         }
-         )
-         ]
-         */
     }
     
     func getImageData(image: UIImage) -> Data {
