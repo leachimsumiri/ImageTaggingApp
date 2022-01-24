@@ -43,6 +43,7 @@ class Networking {
                 let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
                 let keywords = apiResponse.keywords
                 keywords.forEach { keyword in
+                    // add if score above xx
                     print("\(keyword.keyword) with score: \(keyword.score)")
                 }
                 

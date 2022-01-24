@@ -2,8 +2,15 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="storedImage" optional="YES" attributeType="Binary"/>
+        <relationship name="imageKeywords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KeywordData" inverseName="keywordImages" inverseEntity="KeywordData"/>
+    </entity>
+    <entity name="KeywordData" representedClassName="KeywordData" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="percentage" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="keywordImages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image" inverseName="imageKeywords" inverseEntity="Image"/>
     </entity>
     <elements>
-        <element name="Image" positionX="-54" positionY="-9" width="128" height="44"/>
+        <element name="Image" positionX="-361.0987548828125" positionY="9.988128662109375" width="128" height="73"/>
+        <element name="KeywordData" positionX="-54" positionY="0" width="128" height="88"/>
     </elements>
 </model>

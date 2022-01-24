@@ -20,8 +20,7 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var discardButton: UIButton!
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        // + save tags of img
-        coreData.saveImage(data: image!)
+        coreData.saveImage(data: image!, keywords: keywords!)
         self.navigationController?.popViewController(animated: true)
     }
     
