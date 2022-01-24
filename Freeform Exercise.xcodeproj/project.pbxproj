@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0730FEBC27875D6D00788363 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0730FEBB27875D6D00788363 /* AppDelegate.swift */; };
 		0730FEBE27875D6D00788363 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0730FEBD27875D6D00788363 /* SceneDelegate.swift */; };
-		0730FEC027875D6D00788363 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0730FEBF27875D6D00788363 /* ViewController.swift */; };
 		0730FEC327875D6D00788363 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0730FEC127875D6D00788363 /* Main.storyboard */; };
 		0730FEC527875D6E00788363 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0730FEC427875D6E00788363 /* Assets.xcassets */; };
 		0730FEC827875D6E00788363 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0730FEC627875D6E00788363 /* LaunchScreen.storyboard */; };
@@ -19,6 +18,7 @@
 		0777BDFD279F35DA00A88022 /* ApiResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BDFC279F35DA00A88022 /* ApiResponseViewController.swift */; };
 		0777BDFF279F444900A88022 /* AlbumTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BDFE279F444900A88022 /* AlbumTagsViewController.swift */; };
 		0777BE01279F4AEA00A88022 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE00279F4AEA00A88022 /* CoreData.swift */; };
+		0777BE03279F4EB900A88022 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE02279F4EB900A88022 /* UploadViewController.swift */; };
 		078282BA278E290F00BD5A10 /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078282B8278E290F00BD5A10 /* Image+CoreDataClass.swift */; };
 		078282BB278E290F00BD5A10 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078282B9278E290F00BD5A10 /* Image+CoreDataProperties.swift */; };
 		07C0A5FA278F5CE200916BBA /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5F9278F5CE200916BBA /* Keyword.swift */; };
@@ -30,7 +30,6 @@
 		0730FEB827875D6D00788363 /* Freeform Exercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Freeform Exercise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0730FEBB27875D6D00788363 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0730FEBD27875D6D00788363 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0730FEBF27875D6D00788363 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0730FEC227875D6D00788363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0730FEC427875D6E00788363 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0730FEC727875D6E00788363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,6 +40,7 @@
 		0777BDFC279F35DA00A88022 /* ApiResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseViewController.swift; sourceTree = "<group>"; };
 		0777BDFE279F444900A88022 /* AlbumTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTagsViewController.swift; sourceTree = "<group>"; };
 		0777BE00279F4AEA00A88022 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		0777BE02279F4EB900A88022 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		078282B8278E290F00BD5A10 /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
 		078282B9278E290F00BD5A10 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		07C0A5F9278F5CE200916BBA /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 				07C0A5F9278F5CE200916BBA /* Keyword.swift */,
 				0730FECF278791F800788363 /* Networking.swift */,
 				0730FEBD27875D6D00788363 /* SceneDelegate.swift */,
-				0730FEBF27875D6D00788363 /* ViewController.swift */,
+				0777BE02279F4EB900A88022 /* UploadViewController.swift */,
 				0730FEC427875D6E00788363 /* Assets.xcassets */,
 				073A010B278B39420072DD24 /* CoreDataModel.xcdatamodeld */,
 				0730FEC627875D6E00788363 /* LaunchScreen.storyboard */,
@@ -179,7 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0730FEC027875D6D00788363 /* ViewController.swift in Sources */,
+				0777BE03279F4EB900A88022 /* UploadViewController.swift in Sources */,
 				0730FEBC27875D6D00788363 /* AppDelegate.swift in Sources */,
 				0730FEBE27875D6D00788363 /* SceneDelegate.swift in Sources */,
 				078282BA278E290F00BD5A10 /* Image+CoreDataClass.swift in Sources */,
