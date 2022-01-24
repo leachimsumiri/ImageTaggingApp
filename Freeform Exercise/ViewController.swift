@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  UploadViewController.swift
 //  Freeform Exercise
 //
 //  Created by Michael Irimus on 06.01.22.
@@ -8,25 +8,14 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UINavigationControllerDelegate {
+class UploadViewController: UIViewController, UINavigationControllerDelegate {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let networking = Networking()
     var images:[Image]?
     
-    @IBOutlet weak var imageTake: UIImageView!
     var imagePicker: UIImagePickerController!
-    
-    enum ImageSource {
-        case photoLibrary
-        case camera
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
     
     @IBAction func takePhoto(_ sender: UIButton) {
         selectImageFrom(.camera)
@@ -36,55 +25,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         selectImageFrom(.photoLibrary)
     }
     
-    func selectImageFrom(_ source: ImageSource){
-        imagePicker =  UIImagePickerController()
-        imagePicker.delegate = self
-        switch source {
-        case .camera:
-            imagePicker.sourceType = .camera
-        case .photoLibrary:
-            imagePicker.sourceType = .photoLibrary
-        }
-        present(imagePicker, animated: true, completion: nil)
-        
-    }
-    
-    //MARK: - Saving Image to photolibrary
-    @IBAction func save(_ sender: AnyObject) {
-        guard let selectedImage = imageTake.image else {
-            print("Image not found!")
-            return
-        }
-        
-        UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-    }
-    
-    //MARK: - Add image to Library
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
-            // we got back an error!
-            showAlertWith(title: "Save error", message: error.localizedDescription)
-        } else {
-            showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
-        }
-    }
-    
-    func showAlertWith(title: String, message: String){
-        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
     }
 }
 
-extension ViewController: UIImagePickerControllerDelegate{
-    
+extension UploadViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
         guard let selectedImage = info[.originalImage] as? UIImage else {
             print("Image not found!")
             return
         }
-        imageTake.image = selectedImage
         
         let mockResponse =
         """
@@ -123,6 +76,10 @@ extension ViewController: UIImagePickerControllerDelegate{
             print("\(keyword.keyword) with score: \(keyword.score)")
         }
         
+        let apiResponseViewController = self.storyboard?.instantiateViewController(withIdentifier: "ApiResponseViewController") as! ApiResponseViewController
+        apiResponseViewController.keywords = keywords
+        self.navigationController?.pushViewController(apiResponseViewController, animated: true)
+        
         // temp comment
         /*
          let imageData = getImageData(image: selectedImage)
@@ -157,7 +114,38 @@ extension ViewController: UIImagePickerControllerDelegate{
         //status https://blog.devgenius.io/saving-images-in-coredata-8739690d0520
     }
     
+    func selectImageFrom(_ source: ImageSource){
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        switch source {
+        case .camera:
+            imagePicker.sourceType = .camera
+        case .photoLibrary:
+            imagePicker.sourceType = .photoLibrary
+        }
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
     
+    //MARK: - Add image to Library
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            showAlertWith(title: "Save error", message: error.localizedDescription)
+        } else {
+            showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
+        }
+    }
+    
+    
+    func showAlertWith(title: String, message: String){
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
+}
+
+extension UploadViewController {
     //CoreData
     func saveImage(data: Data) {
         //let entityName =  NSEntityDescription.entity(forEntityName: "Image", in: context)!
