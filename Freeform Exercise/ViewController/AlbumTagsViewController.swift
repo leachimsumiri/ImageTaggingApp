@@ -17,6 +17,7 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // coreData.resetAllCoreData()
         self.title = "Tags"
         
         tableView.delegate = self
@@ -54,14 +55,14 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    /*
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let countryDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "CountryDetailViewController") as? CountryDetailViewController
-            self.navigationController?.pushViewController(countryDetailViewController!, animated: true)
-            
-            if let index = tableView.indexPathForSelectedRow?.row {
-                countryDetailViewController!.country = countries?[index]
-            }
+        let albumImagesViewController = self.storyboard?.instantiateViewController(withIdentifier: "AlbumImagesViewController") as? AlbumImagesViewController
+        self.navigationController?.pushViewController(albumImagesViewController!, animated: true)
+        
+        if let index = tableView.indexPathForSelectedRow?.row {
+            albumImagesViewController?.images = keywordDatas![index].keywordImages?.allObjects as? [Image]
         }
-    */
+    }
+    
 }

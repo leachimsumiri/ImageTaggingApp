@@ -7,9 +7,15 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class CoreData {
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    var context:NSManagedObjectContext
+    
+    init() {
+        self.context = self.persistentContainer.viewContext
+    }
     
     func saveImage(data: Data, keywords: [Keyword]) {
         //let entityName =  NSEntityDescription.entity(forEntityName: "Image", in: context)!
@@ -51,6 +57,21 @@ class CoreData {
         } catch {
             print("error fetching keywords from CoreData")
             return nil // questionable
+        }
+    }
+    
+    func resetAllCoreData() {
+         let entityNames = self.persistentContainer.managedObjectModel.entities.map({ $0.name!})
+         entityNames.forEach { [weak self] entityName in
+            let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+
+            do {
+                try self?.context.execute(deleteRequest)
+                try self?.context.save()
+            } catch {
+                print("error deleting all objects form coredata")
+            }
         }
     }
 }

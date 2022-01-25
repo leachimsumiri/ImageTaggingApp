@@ -24,6 +24,8 @@
 		0777BE1B279F584700A88022 /* KeywordData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE19279F584700A88022 /* KeywordData+CoreDataProperties.swift */; };
 		0777BE1E279F59A700A88022 /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE1C279F59A700A88022 /* Image+CoreDataClass.swift */; };
 		0777BE1F279F59A700A88022 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE1D279F59A700A88022 /* Image+CoreDataProperties.swift */; };
+		0777BE2427A09C2200A88022 /* AlbumImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE2327A09C2100A88022 /* AlbumImagesViewController.swift */; };
+		0777BE2627A0A1B100A88022 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE2527A0A1B100A88022 /* ImageCollectionViewCell.swift */; };
 		07C0A5FC278F5D3900916BBA /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5FB278F5D3900916BBA /* ApiResponse.swift */; };
 		07C0A5FE278F5D9500916BBA /* ApiResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		0777BE19279F584700A88022 /* KeywordData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeywordData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0777BE1C279F59A700A88022 /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0777BE1D279F59A700A88022 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0777BE2327A09C2100A88022 /* AlbumImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagesViewController.swift; sourceTree = "<group>"; };
+		0777BE2527A0A1B100A88022 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		07C0A5FB278F5D3900916BBA /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +92,7 @@
 				0730FEBD27875D6D00788363 /* SceneDelegate.swift */,
 				0730FEC427875D6E00788363 /* Assets.xcassets */,
 				073A010B278B39420072DD24 /* CoreDataModel.xcdatamodeld */,
+				0777BE2727A0A27400A88022 /* Custom */,
 				0777BE2227A091D900A88022 /* Data */,
 				0730FEC627875D6E00788363 /* LaunchScreen.storyboard */,
 				0730FEC127875D6D00788363 /* Main.storyboard */,
@@ -115,6 +120,7 @@
 				0777BDFE279F444900A88022 /* AlbumTagsViewController.swift */,
 				0777BDFC279F35DA00A88022 /* ApiResponseViewController.swift */,
 				0777BE02279F4EB900A88022 /* UploadViewController.swift */,
+				0777BE2327A09C2100A88022 /* AlbumImagesViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -125,6 +131,14 @@
 				0777BE00279F4AEA00A88022 /* CoreData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		0777BE2727A0A27400A88022 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				0777BE2527A0A1B100A88022 /* ImageCollectionViewCell.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		078282BC278E291400BD5A10 /* Model */ = {
@@ -215,8 +229,10 @@
 				0777BE17279F57F700A88022 /* Keyword.swift in Sources */,
 				0777BE01279F4AEA00A88022 /* CoreData.swift in Sources */,
 				0730FED0278791F800788363 /* Networking.swift in Sources */,
+				0777BE2627A0A1B100A88022 /* ImageCollectionViewCell.swift in Sources */,
 				0777BDFF279F444900A88022 /* AlbumTagsViewController.swift in Sources */,
 				0777BE1F279F59A700A88022 /* Image+CoreDataProperties.swift in Sources */,
+				0777BE2427A09C2200A88022 /* AlbumImagesViewController.swift in Sources */,
 				0777BE1A279F584700A88022 /* KeywordData+CoreDataClass.swift in Sources */,
 				07C0A5FE278F5D9500916BBA /* ApiResponseError.swift in Sources */,
 				0777BE1E279F59A700A88022 /* Image+CoreDataClass.swift in Sources */,

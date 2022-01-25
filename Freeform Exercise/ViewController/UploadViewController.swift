@@ -94,14 +94,6 @@ extension UploadViewController: UIImagePickerControllerDelegate{
          */
         
         //saveImage(data: imageData)
-        
-        //MARK: - 1st Batch
-        //1. select image or photo
-        //2. upload to everypixel
-        //curl --user "RmsP1fMKwriGr8NzNOxxuHdq:HaBGRbZXRIZBlQ9yCr9216McdThsVeyNPr3wUGwZ1pdc5BKl" -X POST -v -F "data=@/Users/michaelirimus/Downloads/person.png" "https://api.everypixel.com/v1/keywords?num_keywords=10" -v
-        //3. validate response
-        //4. save image and tags on success
-        //5. list tags in tableview
     }
     
     func getImageData(image: UIImage) -> Data {
