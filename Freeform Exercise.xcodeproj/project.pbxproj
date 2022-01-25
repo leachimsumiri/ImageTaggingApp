@@ -26,6 +26,7 @@
 		0777BE1F279F59A700A88022 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE1D279F59A700A88022 /* Image+CoreDataProperties.swift */; };
 		0777BE2427A09C2200A88022 /* AlbumImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE2327A09C2100A88022 /* AlbumImagesViewController.swift */; };
 		0777BE2627A0A1B100A88022 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE2527A0A1B100A88022 /* ImageCollectionViewCell.swift */; };
+		0777BE2B27A0A84700A88022 /* MockApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777BE2A27A0A84700A88022 /* MockApiResponse.swift */; };
 		07C0A5FC278F5D3900916BBA /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5FB278F5D3900916BBA /* ApiResponse.swift */; };
 		07C0A5FE278F5D9500916BBA /* ApiResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		0777BE1D279F59A700A88022 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0777BE2327A09C2100A88022 /* AlbumImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagesViewController.swift; sourceTree = "<group>"; };
 		0777BE2527A0A1B100A88022 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		0777BE2A27A0A84700A88022 /* MockApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiResponse.swift; sourceTree = "<group>"; };
 		07C0A5FB278F5D3900916BBA /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +98,7 @@
 				0777BE2227A091D900A88022 /* Data */,
 				0730FEC627875D6E00788363 /* LaunchScreen.storyboard */,
 				0730FEC127875D6D00788363 /* Main.storyboard */,
+				0777BE2927A0A83B00A88022 /* Mocks */,
 				078282BC278E291400BD5A10 /* Model */,
 				0777BE2027A0919900A88022 /* Structs */,
 				0777BE2127A091BD00A88022 /* ViewController */,
@@ -117,10 +120,10 @@
 		0777BE2127A091BD00A88022 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0777BE2327A09C2100A88022 /* AlbumImagesViewController.swift */,
 				0777BDFE279F444900A88022 /* AlbumTagsViewController.swift */,
 				0777BDFC279F35DA00A88022 /* ApiResponseViewController.swift */,
 				0777BE02279F4EB900A88022 /* UploadViewController.swift */,
-				0777BE2327A09C2100A88022 /* AlbumImagesViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -139,6 +142,14 @@
 				0777BE2527A0A1B100A88022 /* ImageCollectionViewCell.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		0777BE2927A0A83B00A88022 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				0777BE2A27A0A84700A88022 /* MockApiResponse.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		078282BC278E291400BD5A10 /* Model */ = {
@@ -227,6 +238,7 @@
 				0730FEBC27875D6D00788363 /* AppDelegate.swift in Sources */,
 				0730FEBE27875D6D00788363 /* SceneDelegate.swift in Sources */,
 				0777BE17279F57F700A88022 /* Keyword.swift in Sources */,
+				0777BE2B27A0A84700A88022 /* MockApiResponse.swift in Sources */,
 				0777BE01279F4AEA00A88022 /* CoreData.swift in Sources */,
 				0730FED0278791F800788363 /* Networking.swift in Sources */,
 				0777BE2627A0A1B100A88022 /* ImageCollectionViewCell.swift in Sources */,

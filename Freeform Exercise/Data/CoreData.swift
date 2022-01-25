@@ -17,11 +17,7 @@ class CoreData {
         self.context = self.persistentContainer.viewContext
     }
     
-    func saveImage(data: Data, keywords: [Keyword]) {
-        //let entityName =  NSEntityDescription.entity(forEntityName: "Image", in: context)!
-        //let image = NSManagedObject(entity: entityName, insertInto: context)
-        //image.setValue(data, forKeyPath: "storedImage")
-        
+    func saveImage(data: Data, keywords: [Keyword]) {    
         let newImage = Image(context: self.context)
         newImage.storedImage = data
         

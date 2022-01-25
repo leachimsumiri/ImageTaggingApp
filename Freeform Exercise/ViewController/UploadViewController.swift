@@ -30,79 +30,35 @@ extension UploadViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
         
-        let mockResponse =
-        """
-            {
-            "status": "ok",
-            "keywords": [
-                {
-                    "keyword": "nature",
-                    "score": 0.9963446367958373
-                },
-                {
-                    "keyword" : "leaf",
-                    "score" : 0.9923241836022356
-                },
-                {
-                    "keyword" : "plant",
-                    "score" : 0.9911774563872999
-                },
-                {
-                    "keyword" : "multi colored",
-                    "score" : 0.9576665169633503
-                },
-                {
-                    "keyword" : "outdoors",
-                    "score" : 0.9495950604592167
-                }
-            ]
-        }
-        """
         
-        //temp
-        let jsonDecoder = JSONDecoder()
-        let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: mockResponse.data(using: .utf8)!)
-        let keywords = apiResponse.keywords
-        keywords.forEach { keyword in
-            print("\(keyword.keyword) with score: \(keyword.score)")
-        }
-        
-        let apiResponseViewController = self.storyboard?.instantiateViewController(withIdentifier: "ApiResponseViewController") as! ApiResponseViewController
-        apiResponseViewController.keywords = keywords
         guard let selectedImage = info[.originalImage] as? UIImage else {
             print("Image not found!")
-            // additional error handling
             return
         }
-        apiResponseViewController.image = getImageData(image: selectedImage)
-        self.navigationController?.pushViewController(apiResponseViewController, animated: true)
         
-        // temp comment
-        /*
-         let imageData = getImageData(image: selectedImage)
-         networking.uploadImage(imgData: imageData, completionHandler: { res, nserror in
-         if let res = res {
-         print("networking.uploadImage completionHandler: RES")
-         print(res)
-         }
-         
-         if let nserror = nserror {
-         print("networking.uploadImage completionHandler: NSERROR")
-         print(nserror)
-         }
-         })
-         */
+        guard let imageData = getImageData(image: selectedImage) else {
+            return
+        }
         
-        //saveImage(data: imageData)
+        networking.uploadImage(imgData: imageData, completionHandler: { keywords in
+            if let keywords = keywords {
+                let apiResponseViewController = self.storyboard?.instantiateViewController(withIdentifier: "ApiResponseViewController") as! ApiResponseViewController
+                apiResponseViewController.keywords = keywords
+                apiResponseViewController.image = imageData
+                self.navigationController?.pushViewController(apiResponseViewController, animated: true)
+            }
+        })
     }
     
-    func getImageData(image: UIImage) -> Data {
+    func getImageData(image: UIImage) -> Data? {
         //check file format
-        return image.pngData()!//todo correct unwrap
-        //return image.jpegData(compressionQuality: 1)!
+        guard let imgData = image.pngData() else {
+            print("Image data could not be retrieved")
+            return nil
+        }
         
-        // + errorHandling
-        //status https://blog.devgenius.io/saving-images-in-coredata-8739690d0520
+        return imgData
+        //return image.jpegData(compressionQuality: 1)!
     }
     
     func selectImageFrom(_ source: ImageSource){
@@ -115,7 +71,6 @@ extension UploadViewController: UIImagePickerControllerDelegate{
             imagePicker.sourceType = .photoLibrary
         }
         present(imagePicker, animated: true, completion: nil)
-        
     }
     
     

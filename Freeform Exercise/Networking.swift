@@ -9,10 +9,12 @@ import Foundation
 import UIKit
 
 class Networking {
+    let mockApiResponse = MockApiResponse()
     static let session = URLSession(configuration: .default)
     
-    func uploadImage(imgData: Data, completionHandler: @escaping (String?, NSError?) -> ()) {
-        let apiKey = "RmsP1fMKwriGr8NzNOxxuHdq"
+    func uploadImage(imgData: Data, completionHandler: @escaping ([Keyword]?) -> ()) {
+        //let apiKey = "RmsP1fMKwriGr8NzNOxxuHdq"
+        let apiKey = "just_wrong" // wrong api key for mocking
         let apiSecret = "HaBGRbZXRIZBlQ9yCr9216McdThsVeyNPr3wUGwZ1pdc5BKl"
         let loginString = "\(apiKey):\(apiSecret)".data(using: String.Encoding.utf8)!
         let base64LoginString = loginString.base64EncodedString()
@@ -36,17 +38,14 @@ class Networking {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         let dataTask = Networking.session.uploadTask(with: request, from: data, completionHandler: { data, response, error in
+            handleSuccessfulResponse(keywords: self.mockApiResponse.keywords!) // mock
+            return
+            
             if let data = data {
-                print("networking dataTask: DATA")
-                
                 let jsonDecoder = JSONDecoder()
                 let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
-                let keywords = apiResponse.keywords
-                keywords.forEach { keyword in
-                    // add if score above xx
-                    print("\(keyword.keyword) with score: \(keyword.score)")
-                }
-                
+                // TODO handle error
+                handleSuccessfulResponse(keywords: apiResponse.keywords)
             }
             
             if let response = response {
@@ -58,39 +57,12 @@ class Networking {
                 print("networking dataTask: ERROR")
                 print(error)
             }
-            
-            /*if let data = data {
-             let jsonDecoder = JSONDecoder()
-             let user = try? jsonDecoder.decode(User.self, from: data)
-             if let user = user {
-             Networking.loggedInUser = user
-             DispatchQueue.main.async {
-             completionHandler(user, nil, nil)
-             }
-             
-             return
-             }
-             
-             let dataError = try? jsonDecoder.decode(LoginResponseError.self, from: data)
-             if let dataError = dataError {
-             printErrorMessage(errorMessage: dataError.error.message, errorCode: dataError.error.code)
-             }
-             
-             return
-             }
-             
-             if let error = error as NSError? {
-             DispatchQueue.main.async {
-             completionHandler(nil, nil, error)
-             }
-             return
-             }
-             
-             DispatchQueue.main.async {
-             completionHandler(nil, LoginError.unexpectedFormatError, nil)
-             }*/
         })
         
         dataTask.resume()
+        
+        func handleSuccessfulResponse(keywords: [Keyword]) {
+            completionHandler(keywords)
+        }
     }
 }

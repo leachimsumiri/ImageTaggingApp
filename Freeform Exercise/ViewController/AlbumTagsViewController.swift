@@ -17,7 +17,7 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // coreData.resetAllCoreData()
+        // coreData.resetAllCoreData() // fast cleanup
         self.title = "Tags"
         
         tableView.delegate = self
