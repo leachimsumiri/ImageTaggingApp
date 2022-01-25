@@ -190,10 +190,10 @@
             </objects>
             <point key="canvasLocation" x="99" y="422"/>
         </scene>
-        <!--View Controller-->
+        <!--Album Tags View Controller-->
         <scene sceneID="bAJ-xk-FR9">
             <objects>
-                <viewController id="a0f-tv-QwQ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AlbumTagsViewController" id="a0f-tv-QwQ" customClass="AlbumTagsViewController" customModule="Freeform_Exercise" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9RT-sg-lfx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -227,6 +227,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rfV-lR-pXx"/>
+                    <connections>
+                        <outlet property="tableView" destination="kud-ia-llO" id="PqZ-QP-vLV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HiH-qP-12e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -37,7 +37,7 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         
-        coreData.fetchImagesFromCoreData()
+        //coreData.fetchImagesFromCoreData()
     }
     
     override func viewWillAppear(_ animated: Bool) {

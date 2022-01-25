@@ -83,24 +83,48 @@
 			isa = PBXGroup;
 			children = (
 				0730FEC927875D6E00788363 /* Info.plist */,
-				0777BDFE279F444900A88022 /* AlbumTagsViewController.swift */,
-				07C0A5FB278F5D3900916BBA /* ApiResponse.swift */,
-				07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */,
-				0777BDFC279F35DA00A88022 /* ApiResponseViewController.swift */,
 				0730FEBB27875D6D00788363 /* AppDelegate.swift */,
-				0777BE00279F4AEA00A88022 /* CoreData.swift */,
-				0777BDF8279F292300A88022 /* ImageSource.swift */,
-				0777BE16279F57F700A88022 /* Keyword.swift */,
 				0730FECF278791F800788363 /* Networking.swift */,
 				0730FEBD27875D6D00788363 /* SceneDelegate.swift */,
-				0777BE02279F4EB900A88022 /* UploadViewController.swift */,
 				0730FEC427875D6E00788363 /* Assets.xcassets */,
 				073A010B278B39420072DD24 /* CoreDataModel.xcdatamodeld */,
+				0777BE2227A091D900A88022 /* Data */,
 				0730FEC627875D6E00788363 /* LaunchScreen.storyboard */,
 				0730FEC127875D6D00788363 /* Main.storyboard */,
 				078282BC278E291400BD5A10 /* Model */,
+				0777BE2027A0919900A88022 /* Structs */,
+				0777BE2127A091BD00A88022 /* ViewController */,
 			);
 			path = "Freeform Exercise";
+			sourceTree = "<group>";
+		};
+		0777BE2027A0919900A88022 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				0777BDF8279F292300A88022 /* ImageSource.swift */,
+				0777BE16279F57F700A88022 /* Keyword.swift */,
+				07C0A5FB278F5D3900916BBA /* ApiResponse.swift */,
+				07C0A5FD278F5D9500916BBA /* ApiResponseError.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		0777BE2127A091BD00A88022 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0777BDFE279F444900A88022 /* AlbumTagsViewController.swift */,
+				0777BDFC279F35DA00A88022 /* ApiResponseViewController.swift */,
+				0777BE02279F4EB900A88022 /* UploadViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0777BE2227A091D900A88022 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0777BE00279F4AEA00A88022 /* CoreData.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		078282BC278E291400BD5A10 /* Model */ = {

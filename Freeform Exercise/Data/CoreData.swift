@@ -23,6 +23,8 @@ class CoreData {
             let newKeyword = KeywordData(context: self.context)
             newKeyword.name = keyword.keyword
             newKeyword.percentage = keyword.score
+            
+            newImage.addToImageKeywords(newKeyword)
         }
         
         do {
@@ -34,14 +36,21 @@ class CoreData {
     }
     
     
-     func fetchImagesFromCoreData() {
-     do {
-     //self.images = try context.fetch(Image.fetchRequest())
-         let a = try context.fetch(Image.fetchRequest())
-         print(a)
-     } catch {
-     print("error fetching images from CoreData")
-     }
-     }
-     
+    func fetchImagesFromCoreData() -> [Image]? {
+        do {
+            return try context.fetch(Image.fetchRequest())
+        } catch {
+            print("error fetching images from CoreData")
+            return nil // questionable
+        }
+    }
+    
+    func fetchKeywordsFromCoreData() -> [KeywordData]? {
+        do {
+            return try context.fetch(KeywordData.fetchRequest())
+        } catch {
+            print("error fetching keywords from CoreData")
+            return nil // questionable
+        }
+    }
 }
