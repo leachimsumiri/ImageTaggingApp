@@ -26,9 +26,13 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         
         keywordDatas = coreData.fetchKeywordsFromCoreData()
-        for keywordData in keywordDatas! {
-            let newKeyword = Keyword(keyword: keywordData.name!, score: keywordData.percentage)
-            keywords.append(newKeyword)
+        if let keywordDatas = keywordDatas {
+            for keywordData in keywordDatas {
+                let newKeyword = Keyword(keyword: keywordData.name!, score: keywordData.percentage)
+                keywords.append(newKeyword)
+            }
+        } else {
+            showAlertWith(title: "Error", message: "keywords could not be fetched, try again")
         }
         
         self.tableView.reloadData()
@@ -64,5 +68,4 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
             albumImagesViewController?.images = keywordDatas![index].keywordImages?.allObjects as? [Image]
         }
     }
-    
 }

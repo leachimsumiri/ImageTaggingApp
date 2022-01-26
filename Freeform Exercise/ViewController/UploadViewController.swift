@@ -26,7 +26,7 @@ extension UploadViewController: UIImagePickerControllerDelegate {
         imagePicker.dismiss(animated: true, completion: nil)
         
         guard let selectedImage = info[.originalImage] as? UIImage else {
-            print("Image not found!")
+            showAlertWith(title: "Error", message: "Image data could not be retrieved")
             return
         }
         
@@ -41,14 +41,12 @@ extension UploadViewController: UIImagePickerControllerDelegate {
     
     
     func getImageData(image: UIImage) -> Data? {
-        //check file format
         guard let imgData = image.pngData() else {
-            print("Image data could not be retrieved")
+            showAlertWith(title: "Error", message: "Image data could not be retrieved")
             return nil
         }
         
         return imgData
-        //return image.jpegData(compressionQuality: 1)!
     }
     
     func selectImageFrom(_ source: ImageSource) {
@@ -62,8 +60,9 @@ extension UploadViewController: UIImagePickerControllerDelegate {
         }
         present(imagePicker, animated: true, completion: nil)
     }
-    
-    
+}
+
+extension UIViewController {
     func showAlertWith(title: String, message: String){
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))

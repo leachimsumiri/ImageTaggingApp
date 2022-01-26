@@ -12,7 +12,7 @@ class Networking {
     let mockApiResponse = MockApiResponse()
     static let session = URLSession(configuration: .default)
     
-    func uploadImage(imgData: Data, completionHandler: @escaping ([Keyword]?) -> ()) {
+    func uploadImage(imgData: Data, completionHandler: @escaping ([Keyword]?, ApiResponseError?, NSError?) -> ()) {
         //let apiKey = "RmsP1fMKwriGr8NzNOxxuHdq"
         let apiKey = "just_wrong" // wrong api key for mocking
         let apiSecret = "HaBGRbZXRIZBlQ9yCr9216McdThsVeyNPr3wUGwZ1pdc5BKl"
@@ -39,7 +39,7 @@ class Networking {
         
         let dataTask = Networking.session.uploadTask(with: request, from: data, completionHandler: { data, response, error in
             DispatchQueue.main.async {
-                handleSuccessfulResponse(keywords: self.mockApiResponse.keywords!) // mock
+                handleSuccessfulResponse(self.mockApiResponse.keywords!, nil, nil) // mock
             }
             return
             
@@ -48,25 +48,27 @@ class Networking {
                 let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
                 // TODO handle error
                 DispatchQueue.main.async {
-                    handleSuccessfulResponse(keywords: apiResponse.keywords)
+                    handleSuccessfulResponse(apiResponse.keywords, nil, nil)
                 }
-            }
-            
-            if let response = response {
-                print("networking dataTask: RESPONSE")
-                print(response)
             }
             
             if let error = error {
                 print("networking dataTask: ERROR")
                 print(error)
             }
+            
+            if let error = error as NSError? {
+                DispatchQueue.main.async {
+                    handleSuccessfulResponse(nil, nil, error)
+                }
+                return
+            }
         })
         
         dataTask.resume()
         
-        func handleSuccessfulResponse(keywords: [Keyword]) {
-            completionHandler(keywords)
+        func handleSuccessfulResponse(_ keywords: [Keyword]?, _ apiResponseError: ApiResponseError?, _ nserror: NSError?) {
+            completionHandler(keywords, apiResponseError, nserror)
         }
     }
 }

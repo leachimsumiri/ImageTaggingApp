@@ -17,7 +17,7 @@ class CoreData {
         self.context = self.persistentContainer.viewContext
     }
     
-    func saveImage(data: Data, keywords: [Keyword]) {    
+    func saveImage(data: Data, keywords: [Keyword]) -> Bool {
         let newImage = Image(context: self.context)
         newImage.storedImage = data
         
@@ -32,18 +32,10 @@ class CoreData {
         do {
             try context.save()
             print("saved image with keywords!")
+            return true
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-    
-    
-    func fetchImagesFromCoreData() -> [Image]? {
-        do {
-            return try context.fetch(Image.fetchRequest())
-        } catch {
-            print("error fetching images from CoreData")
-            return nil // questionable
+            return false
         }
     }
     
@@ -52,10 +44,11 @@ class CoreData {
             return try context.fetch(KeywordData.fetchRequest())
         } catch {
             print("error fetching keywords from CoreData")
-            return nil // questionable
+            return nil
         }
     }
     
+    // MARK: for testing
     func resetAllCoreData() {
          let entityNames = self.persistentContainer.managedObjectModel.entities.map({ $0.name!})
          entityNames.forEach { [weak self] entityName in

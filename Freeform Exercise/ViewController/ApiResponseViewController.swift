@@ -21,7 +21,12 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        coreData.saveImage(data: image!, keywords: keywords!)
+        let saveImageStatus = coreData.saveImage(data: image!, keywords: keywords!)
+        
+        if (!saveImageStatus) {
+            showAlertWith(title: "Error", message: "Error saving image with tags")
+        }
+        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -51,13 +56,21 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
         
         triggerUiElementsState(state: false)
         
-        networking.uploadImage(imgData: image!, completionHandler: { keywords in
+        networking.uploadImage(imgData: image!, completionHandler: { keywords, apiReponseError, nserror  in
             if let keywords = keywords {
                 DispatchQueue.main.async {
                     self.keywords = keywords
                     self.triggerUiElementsState(state: true)
                     self.tableView.reloadData()
                 }
+            }
+            
+            if let apiReponseError = apiReponseError {
+                self.showAlertWith(title: "API Response Error", message: "\(apiReponseError.status): \(apiReponseError.message)")
+            }
+            
+            if let nserror = nserror {
+                self.showAlertWith(title: "NSError", message: nserror.localizedDescription)
             }
         })
     }
