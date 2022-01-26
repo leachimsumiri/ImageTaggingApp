@@ -24,6 +24,7 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         
+        CoreData.context.refreshAllObjects()
         keywordDatas = CoreData.fetchKeywordsFromCoreData()
         
         if let keywordDatas = keywordDatas {

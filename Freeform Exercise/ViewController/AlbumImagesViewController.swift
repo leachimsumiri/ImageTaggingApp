@@ -27,7 +27,7 @@ class AlbumImagesViewController: UICollectionViewController {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return images!.count >= 3 ? 3 : images!.count
+        return 1
     }
     
     override func collectionView(
@@ -53,9 +53,8 @@ extension AlbumImagesViewController: UICollectionViewDelegateFlowLayout {
     layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
-    let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-    let availableWidth = view.frame.width - paddingSpace
-    let widthPerItem = availableWidth / itemsPerRow
+    let availableWidth = view.frame.width
+    let widthPerItem = availableWidth
     
     return CGSize(width: widthPerItem, height: widthPerItem)
   }
