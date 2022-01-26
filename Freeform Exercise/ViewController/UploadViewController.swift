@@ -19,17 +19,11 @@ class UploadViewController: UIViewController, UINavigationControllerDelegate {
     @IBAction func chooseFromAlbum(_ sender: UIButton) {
         selectImageFrom(.photoLibrary)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
 }
 
-extension UploadViewController: UIImagePickerControllerDelegate{
+extension UploadViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         imagePicker.dismiss(animated: true, completion: nil)
-        
         
         guard let selectedImage = info[.originalImage] as? UIImage else {
             print("Image not found!")
@@ -40,15 +34,11 @@ extension UploadViewController: UIImagePickerControllerDelegate{
             return
         }
         
-        networking.uploadImage(imgData: imageData, completionHandler: { keywords in
-            if let keywords = keywords {
-                let apiResponseViewController = self.storyboard?.instantiateViewController(withIdentifier: "ApiResponseViewController") as! ApiResponseViewController
-                apiResponseViewController.keywords = keywords
-                apiResponseViewController.image = imageData
-                self.navigationController?.pushViewController(apiResponseViewController, animated: true)
-            }
-        })
+        let apiResponseViewController = self.storyboard?.instantiateViewController(withIdentifier: "ApiResponseViewController") as! ApiResponseViewController
+        apiResponseViewController.image = imageData
+        self.navigationController?.pushViewController(apiResponseViewController, animated: true)
     }
+    
     
     func getImageData(image: UIImage) -> Data? {
         //check file format
@@ -61,7 +51,7 @@ extension UploadViewController: UIImagePickerControllerDelegate{
         //return image.jpegData(compressionQuality: 1)!
     }
     
-    func selectImageFrom(_ source: ImageSource){
+    func selectImageFrom(_ source: ImageSource) {
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         switch source {

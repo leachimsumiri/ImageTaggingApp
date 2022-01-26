@@ -18,6 +18,7 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var tableView: UITableView!
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var discardButton: UIButton!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         coreData.saveImage(data: image!, keywords: keywords!)
@@ -28,6 +29,17 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
         self.navigationController?.popViewController(animated: true)
     }
     
+    func triggerUiElementsState(state: Bool) {
+        saveButton.isEnabled = state
+        discardButton.isEnabled = state
+        
+        if (!state) {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Tags"
@@ -36,6 +48,18 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.dataSource = self
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        
+        triggerUiElementsState(state: false)
+        
+        networking.uploadImage(imgData: image!, completionHandler: { keywords in
+            if let keywords = keywords {
+                DispatchQueue.main.async {
+                    self.keywords = keywords
+                    self.triggerUiElementsState(state: true)
+                    self.tableView.reloadData()
+                }
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {

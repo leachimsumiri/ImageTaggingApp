@@ -111,6 +111,9 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="sTt-7Z-QGI" userLabel="Activity Indicator">
+                                <rect key="frame" x="0.0" y="429" width="414" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1zp-GJ-Dvd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -119,12 +122,15 @@
                             <constraint firstItem="dmD-Or-LSO" firstAttribute="height" secondItem="1zp-GJ-Dvd" secondAttribute="height" constant="-40" id="3wo-QD-W3w"/>
                             <constraint firstItem="dmD-Or-LSO" firstAttribute="centerX" secondItem="1zp-GJ-Dvd" secondAttribute="centerX" id="8xJ-aA-jHY"/>
                             <constraint firstItem="1zp-GJ-Dvd" firstAttribute="top" secondItem="dmD-Or-LSO" secondAttribute="top" id="I2L-0L-PA1"/>
+                            <constraint firstItem="sTt-7Z-QGI" firstAttribute="centerX" secondItem="1zp-GJ-Dvd" secondAttribute="centerX" id="Mss-R9-PT8"/>
                             <constraint firstItem="dmD-Or-LSO" firstAttribute="width" secondItem="1zp-GJ-Dvd" secondAttribute="width" id="OGp-V6-e3U"/>
                             <constraint firstItem="dmD-Or-LSO" firstAttribute="leading" secondItem="1zp-GJ-Dvd" secondAttribute="leading" id="R6I-wh-zz7"/>
                             <constraint firstItem="1zp-GJ-Dvd" firstAttribute="trailing" secondItem="dmD-Or-LSO" secondAttribute="trailing" id="g3q-yR-qgB"/>
+                            <constraint firstItem="sTt-7Z-QGI" firstAttribute="centerY" secondItem="1zp-GJ-Dvd" secondAttribute="centerY" id="vD9-N2-d2u"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="sTt-7Z-QGI" id="4Cf-Aj-aNg"/>
                         <outlet property="discardButton" destination="tul-DS-qvy" id="J3g-iU-aF6"/>
                         <outlet property="saveButton" destination="EM0-t9-5ap" id="NEx-Zk-89h"/>
                         <outlet property="tableView" destination="3QV-lM-VHT" id="CLz-t8-9p4"/>

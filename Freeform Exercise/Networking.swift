@@ -38,14 +38,18 @@ class Networking {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         let dataTask = Networking.session.uploadTask(with: request, from: data, completionHandler: { data, response, error in
-            handleSuccessfulResponse(keywords: self.mockApiResponse.keywords!) // mock
+            DispatchQueue.main.async {
+                handleSuccessfulResponse(keywords: self.mockApiResponse.keywords!) // mock
+            }
             return
             
             if let data = data {
                 let jsonDecoder = JSONDecoder()
                 let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
                 // TODO handle error
-                handleSuccessfulResponse(keywords: apiResponse.keywords)
+                DispatchQueue.main.async {
+                    handleSuccessfulResponse(keywords: apiResponse.keywords)
+                }
             }
             
             if let response = response {
