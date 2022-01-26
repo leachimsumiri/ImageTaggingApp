@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let coreData = CoreData()
     var keywords: [Keyword?] = []
     var keywordDatas: [KeywordData]?
     
@@ -17,7 +16,7 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // coreData.resetAllCoreData() // fast cleanup
+        // CoreData.resetAllCoreData() // fast cleanup
         self.title = "Tags"
         
         tableView.delegate = self
@@ -25,7 +24,8 @@ class AlbumTagsViewController : UIViewController, UITableViewDelegate, UITableVi
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         
-        keywordDatas = coreData.fetchKeywordsFromCoreData()
+        keywordDatas = CoreData.fetchKeywordsFromCoreData()
+        
         if let keywordDatas = keywordDatas {
             for keywordData in keywordDatas {
                 let newKeyword = Keyword(keyword: keywordData.name!, score: keywordData.percentage)

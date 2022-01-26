@@ -10,23 +10,31 @@ import UIKit
 import CoreData
 
 class CoreData {
-    let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
-    var context:NSManagedObjectContext
+    static let persistentContainer = (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    static var context: NSManagedObjectContext = persistentContainer.viewContext
     
-    init() {
-        self.context = self.persistentContainer.viewContext
-    }
-    
-    func saveImage(data: Data, keywords: [Keyword]) -> Bool {
-        let newImage = Image(context: self.context)
+    static func saveImage(data: Data, keywords: [Keyword]) -> Bool {
+        let keywordDatas = fetchKeywordsFromCoreData()
+        
+        guard let keywordDatas = keywordDatas else {
+            print("Could not retrieve Keywords while saving Image")
+            return false
+        }
+        
+        let newImage = Image(context: context)
         newImage.storedImage = data
         
-        keywords.forEach { keyword in
-            let newKeyword = KeywordData(context: self.context)
-            newKeyword.name = keyword.keyword
-            newKeyword.percentage = keyword.score
-            
-            newImage.addToImageKeywords(newKeyword)
+        for keyword in keywords {
+            let existingKeywordData = keywordExists(keywordDatas: keywordDatas, keyword: keyword)
+            if let existingKeywordData = existingKeywordData {
+                newImage.addToImageKeywords(existingKeywordData)
+            } else {
+                let newKeyword = KeywordData(context: context)
+                newKeyword.name = keyword.keyword
+                newKeyword.percentage = keyword.score
+                
+                newImage.addToImageKeywords(newKeyword)
+            }
         }
         
         do {
@@ -39,7 +47,7 @@ class CoreData {
         }
     }
     
-    func fetchKeywordsFromCoreData() -> [KeywordData]? {
+    static func fetchKeywordsFromCoreData() -> [KeywordData]? {
         do {
             return try context.fetch(KeywordData.fetchRequest())
         } catch {
@@ -49,18 +57,43 @@ class CoreData {
     }
     
     // MARK: for testing
-    func resetAllCoreData() {
-         let entityNames = self.persistentContainer.managedObjectModel.entities.map({ $0.name!})
-         entityNames.forEach { [weak self] entityName in
+    static func resetAllCoreData() {
+        let entityNames = persistentContainer.managedObjectModel.entities.map({ $0.name!})
+        entityNames.forEach { entityName in
             let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-
+            
             do {
-                try self?.context.execute(deleteRequest)
-                try self?.context.save()
+                try context.execute(deleteRequest)
+                try context.save()
             } catch {
                 print("error deleting all objects form coredata")
             }
+        }
+    }
+    
+    static func keywordExists(keywordDatas: [KeywordData], keyword: Keyword) -> KeywordData? {
+        var existingKeywordData: KeywordData? = nil
+        
+        keywordDatas.forEach { keywordData in
+            if (keyword.keyword == keywordData.name) {
+                existingKeywordData = keywordData
+            }
+        }
+        
+        return existingKeywordData
+    }
+    
+    static func getKeywordsByName(name: String) -> [KeywordData]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "KeywordData")
+        fetchRequest.predicate = NSPredicate(format: "name = \(name)")
+        
+        do {
+            return try context.fetch(fetchRequest) as? [KeywordData]
+        } catch let error as NSError {
+            print("error fetching keyworddata with specific name: \(name)")
+            print("error: \(error)")
+            return nil
         }
     }
 }

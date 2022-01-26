@@ -11,7 +11,6 @@ import UIKit
 class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let networking = Networking()
-    let coreData = CoreData()
     var keywords: [Keyword]?
     var image: Data?
     
@@ -21,7 +20,7 @@ class ApiResponseViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        let saveImageStatus = coreData.saveImage(data: image!, keywords: keywords!)
+        let saveImageStatus = CoreData.saveImage(data: image!, keywords: keywords!)
         
         if (!saveImageStatus) {
             showAlertWith(title: "Error", message: "Error saving image with tags")

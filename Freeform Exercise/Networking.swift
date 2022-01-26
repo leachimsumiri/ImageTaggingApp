@@ -13,8 +13,8 @@ class Networking {
     static let session = URLSession(configuration: .default)
     
     func uploadImage(imgData: Data, completionHandler: @escaping ([Keyword]?, ApiResponseError?, NSError?) -> ()) {
-        //let apiKey = "RmsP1fMKwriGr8NzNOxxuHdq"
-        let apiKey = "just_wrong" // wrong api key for mocking
+        let apiKey = "RmsP1fMKwriGr8NzNOxxuHdq"
+        // let apiKey = "just_wrong" // wrong api key for mocking
         let apiSecret = "HaBGRbZXRIZBlQ9yCr9216McdThsVeyNPr3wUGwZ1pdc5BKl"
         let loginString = "\(apiKey):\(apiSecret)".data(using: String.Encoding.utf8)!
         let base64LoginString = loginString.base64EncodedString()
@@ -38,25 +38,29 @@ class Networking {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         let dataTask = Networking.session.uploadTask(with: request, from: data, completionHandler: { data, response, error in
-            DispatchQueue.main.async {
-                handleSuccessfulResponse(self.mockApiResponse.keywords!, nil, nil) // mock
-            }
-            return
+            /*
+             DispatchQueue.main.async {
+             handleSuccessfulResponse(self.mockApiResponse.keywords!, nil, nil) // mock
+             }
+             return
+             */
             
             if let data = data {
                 let jsonDecoder = JSONDecoder()
-                let apiResponse = try! jsonDecoder.decode(ApiResponse.self, from: data)
-                // TODO handle error
-                DispatchQueue.main.async {
-                    handleSuccessfulResponse(apiResponse.keywords, nil, nil)
+                let apiResponse = try? jsonDecoder.decode(ApiResponse.self, from: data)
+                
+                if let apiResponse = apiResponse {
+                    DispatchQueue.main.async {
+                        handleSuccessfulResponse(apiResponse.keywords, nil, nil)
+                    }
+                } else {
+                    let dataError = try? jsonDecoder.decode(ApiResponseError.self, from: data)
+                    if let dataError = dataError {
+                        handleSuccessfulResponse(nil, dataError, nil)
+                    }
                 }
             }
-            
-            if let error = error {
-                print("networking dataTask: ERROR")
-                print(error)
-            }
-            
+
             if let error = error as NSError? {
                 DispatchQueue.main.async {
                     handleSuccessfulResponse(nil, nil, error)
